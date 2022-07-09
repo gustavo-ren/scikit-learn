@@ -454,7 +454,7 @@ PARAM_VALIDATION_ESTIMATORS_TO_IGNORE = [
     "AgglomerativeClustering",
     "BaggingClassifier",
     "BaggingRegressor",
-    "BayesianGaussianMixture",
+    # "BayesianGaussianMixture",
     "BayesianRidge",
     "BernoulliNB",
     "BernoulliRBM",

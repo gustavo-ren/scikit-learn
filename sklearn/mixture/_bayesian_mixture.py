@@ -5,6 +5,7 @@
 
 import math
 import numpy as np
+from array import array
 from scipy.special import betaln, digamma, gammaln
 
 from ._base import BaseMixture, _check_shape
@@ -15,6 +16,7 @@ from ._gaussian_mixture import _compute_precision_cholesky
 from ._gaussian_mixture import _estimate_gaussian_parameters
 from ._gaussian_mixture import _estimate_log_gaussian_prob
 from ..utils import check_array
+from ..utils._param_validation import StrOptions
 
 
 def _log_dirichlet_norm(dirichlet_concentration):
@@ -342,6 +344,29 @@ class BayesianGaussianMixture(BaseMixture):
     >>> bgm.predict([[0, 0], [9, 3]])
     array([0, 1])
     """
+    _parameter_constraints = {
+        "n_components": [int],
+        "covariance_type": [
+            StrOptions({"full", "tied", "diag", "spherical"})
+        ],
+        "tol": [float],
+        "reg_covar": [float],
+        "max_iter": [int],
+        "n_init": [int],
+        "init_params": [
+            StrOptions({'kmeans', 'k-means++', 'random', 'random_from_data'})
+        ],
+        "weight_concentration_prior_type": [str],
+        "weight_concentration_prior": [float, None],
+        "mean_precision_prior": [float, None],
+        "mean_prior": [[]],
+        "degrees_of_freedom_prior": [float, None],
+        "covariance_prior": [float, []],
+        "random_state": [int],
+        "warm_start": [bool],
+        "verbose": [int],
+        "verbose_interval": [int]
+    }
 
     def __init__(
         self,
